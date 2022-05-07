@@ -1,11 +1,13 @@
 Name:           python-firehose
 Version:        0.5
-Release:        1
+Release:        2
 Summary:        Library for working with output from static code analyzers
 
 License:        LGPLv2+
 URL:            https://github.com/fedora-static-analysis/firehose
 Source0:        %{name}-%{version}.tar.gz
+# https://github.com/fedora-static-analysis/firehose/pull/42
+Patch0:         0001-Remove-calls-to-deprecated-plistlib-function.patch
 BuildArch:      noarch
 
 BuildRequires:  libxml2
@@ -30,6 +32,7 @@ Requires:  python3-six
 
 %prep
 %setup -q -n firehose-%{version}
+%patch0 -p1
 
 %build
 %py3_build
@@ -51,5 +54,8 @@ chmod +x %{buildroot}/%{python3_sitelib}/firehose/parsers/gcc.py
 
 
 %changelog
+* Tue May 17 2022 lvxiaoqian <xiaoqian@nj.iscas.ac.cn> - 0.5-2
+- Remove calls to deprecated plistlib function
+
 * Mon Jul 05 2021 Lianguo Wang <wanglianguo@kylinos.cn> - 0.5
 - Initial package for openEuler, version 0.5
